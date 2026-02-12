@@ -1,5 +1,6 @@
 import { Springs } from '@/constants/animations';
 import { useEffect } from 'react';
+import type { ViewStyle } from 'react-native';
 import {
   type AnimatedStyle,
   type SharedValue,
@@ -28,7 +29,7 @@ export interface UseEntranceOptions {
 }
 
 export interface UseEntranceReturn {
-  animatedStyle: AnimatedStyle;
+  animatedStyle: AnimatedStyle<ViewStyle>;
   /** Trigger enter animation */
   enter: () => void;
   /** Reset to initial (hidden) state */

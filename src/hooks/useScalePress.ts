@@ -1,6 +1,7 @@
 import { Springs, TapFeedback } from '@/constants/animations';
 import * as Haptics from 'expo-haptics';
 import { useCallback } from 'react';
+import type { ViewStyle } from 'react-native';
 import { Gesture, type GestureType } from 'react-native-gesture-handler';
 import {
   type AnimatedStyle,
@@ -28,7 +29,7 @@ export interface UseScalePressOptions {
 
 export interface UseScalePressReturn {
   gesture: GestureType;
-  animatedStyle: AnimatedStyle;
+  animatedStyle: AnimatedStyle<ViewStyle>;
   pressed: SharedValue<boolean>;
 }
 

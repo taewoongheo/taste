@@ -3,8 +3,8 @@ import type * as Haptics from 'expo-haptics';
 import type { ReactNode } from 'react';
 import type { ViewProps } from 'react-native';
 import { GestureDetector } from 'react-native-gesture-handler';
-import Animated from 'react-native-reanimated';
 import type { WithSpringConfig } from 'react-native-reanimated';
+import Animated from 'react-native-reanimated';
 
 export interface AnimatedPressableProps extends Omit<ViewProps, 'style'> {
   /** Callback on tap */
