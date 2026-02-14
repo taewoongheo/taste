@@ -1,1 +1,1 @@
-export { supabase } from './supabase';
+export { migrate } from './database';

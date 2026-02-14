@@ -1,3 +1,5 @@
+import { migrate } from '@/lib';
+import { SQLiteProvider } from 'expo-sqlite';
 import type { ReactNode } from 'react';
 import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -11,7 +13,13 @@ interface AppProvidersProps {
  * Add new providers here — they wrap the entire app.
  */
 export function AppProviders({ children }: AppProvidersProps) {
-  return <GestureHandlerRootView style={styles.root}>{children}</GestureHandlerRootView>;
+  return (
+    <GestureHandlerRootView style={styles.root}>
+      <SQLiteProvider databaseName="taste-kit.db" onInit={migrate}>
+        {children}
+      </SQLiteProvider>
+    </GestureHandlerRootView>
+  );
 }
 
 const styles = StyleSheet.create({
