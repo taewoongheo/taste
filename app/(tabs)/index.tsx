@@ -1,9 +1,12 @@
 import {
+  AnimatedNumber,
   AnimatedPressable,
   Button,
   Card,
+  Collapse,
   Dialog,
   Divider,
+  FadeView,
   Image,
   ListItem,
   SearchBar,
@@ -13,6 +16,7 @@ import {
   TextInput,
   Toggle,
   useEntrance,
+  useShake,
   useToast,
 } from '@/components/ui';
 import { Spacing } from '@/constants';
@@ -113,9 +117,14 @@ function ComponentsContent({
   const s2 = useEntrance({ fade: true, slideY: 30, delay: 100 });
   const s3 = useEntrance({ fade: true, slideY: 30, delay: 200 });
   const s4 = useEntrance({ fade: true, slideY: 30, delay: 300 });
+  const s5 = useEntrance({ fade: true, slideY: 30, delay: 400 });
 
   const [toggleValue, setToggleValue] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [collapseExpanded, setCollapseExpanded] = useState(false);
+  const [fadeVisible, setFadeVisible] = useState(true);
+  const [counterValue, setCounterValue] = useState(0);
+  const { animatedStyle: shakeStyle, shake } = useShake();
 
   return (
     <>
@@ -304,6 +313,68 @@ function ComponentsContent({
             router.replace('/onboarding');
           }}
         />
+      </Animated.View>
+
+      {/* Animations */}
+      <Animated.View style={[styles.section, s5.animatedStyle]}>
+        <Text variant="subtitle">Animations</Text>
+
+        {/* Collapse */}
+        <Button
+          title={collapseExpanded ? 'Collapse 닫기' : 'Collapse 열기'}
+          variant="secondary"
+          size="sm"
+          onPress={() => setCollapseExpanded((v) => !v)}
+        />
+        <Collapse expanded={collapseExpanded}>
+          <Card variant="filled">
+            <Text>접힌 콘텐츠가 여기에 표시됩니다.</Text>
+            <Text color="textSecondary" variant="caption">
+              height 애니메이션으로 자연스럽게 열고 닫힙니다.
+            </Text>
+          </Card>
+        </Collapse>
+
+        {/* useShake */}
+        <Animated.View style={shakeStyle}>
+          <Button title="Shake!" variant="destructive" size="sm" onPress={shake} />
+        </Animated.View>
+
+        {/* FadeView */}
+        <Button
+          title={fadeVisible ? 'Fade Out' : 'Fade In'}
+          variant="secondary"
+          size="sm"
+          onPress={() => setFadeVisible((v) => !v)}
+        />
+        <FadeView visible={fadeVisible}>
+          <Card variant="filled">
+            <Text>이 카드는 fade in/out 됩니다.</Text>
+          </Card>
+        </FadeView>
+
+        {/* AnimatedNumber */}
+        <AnimatedNumber value={counterValue} align="center" />
+        <View style={styles.row}>
+          <Button
+            title="+100"
+            variant="secondary"
+            size="sm"
+            onPress={() => setCounterValue((v) => v + 100)}
+          />
+          <Button
+            title="-50"
+            variant="secondary"
+            size="sm"
+            onPress={() => setCounterValue((v) => v - 50)}
+          />
+          <Button
+            title="Reset"
+            variant="ghost"
+            size="sm"
+            onPress={() => setCounterValue(0)}
+          />
+        </View>
       </Animated.View>
     </>
   );
