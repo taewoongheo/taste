@@ -4,13 +4,13 @@ import { Easing, type WithSpringConfig, type WithTimingConfig } from 'react-nati
 
 export const Springs = {
   /** Slow, smooth — page transitions, large elements */
-  gentle: { damping: 24, stiffness: 150 } satisfies WithSpringConfig,
+  gentle: { damping: 26, stiffness: 180 } satisfies WithSpringConfig,
   /** Quick, responsive — buttons, toggles */
-  snappy: { damping: 30, stiffness: 300 } satisfies WithSpringConfig,
+  snappy: { damping: 36, stiffness: 380 } satisfies WithSpringConfig,
   /** Playful, subtle overshoot — celebrations, attention */
-  bouncy: { damping: 22, stiffness: 200 } satisfies WithSpringConfig,
+  bouncy: { damping: 28, stiffness: 260 } satisfies WithSpringConfig,
   /** Instant, no overshoot — corrections, resets */
-  stiff: { damping: 50, stiffness: 500 } satisfies WithSpringConfig,
+  stiff: { damping: 54, stiffness: 600 } satisfies WithSpringConfig,
 } as const;
 
 // ─── Timing Configs ──────────────────────────────────────
