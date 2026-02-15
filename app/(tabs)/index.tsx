@@ -4,6 +4,7 @@ import {
   Card,
   Dialog,
   Divider,
+  Image,
   ListItem,
   SearchBar,
   Sheet,
@@ -31,31 +32,94 @@ export default function HomeScreen() {
   const accent = useThemeColor('accent');
 
   const { top } = useSafeAreaInsets();
-  const headerEntrance = useEntrance({ fade: true, slideY: 20 });
-  const s1 = useEntrance({ fade: true, slideY: 30, delay: 100 });
-  const s2 = useEntrance({ fade: true, slideY: 30, delay: 200 });
-  const s3 = useEntrance({ fade: true, slideY: 30, delay: 300 });
+  const [renderKey, setRenderKey] = useState(0);
 
   const sheetRef = useRef<BottomSheet>(null);
   const openSheet = useCallback(() => sheetRef.current?.snapToIndex(0), []);
   const { show } = useToast();
 
-  const [toggleValue, setToggleValue] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
   const [dialogVisible, setDialogVisible] = useState(false);
+
+  const handleReplay = useCallback(() => {
+    Haptic.tap();
+    setRenderKey((k) => k + 1);
+  }, []);
 
   return (
     <ScrollView
       style={[styles.scroll, { backgroundColor: bg }]}
       contentContainerStyle={[styles.content, { paddingTop: top + Spacing.md }]}
     >
-      <Animated.View style={headerEntrance.animatedStyle}>
-        <Text style={[Typography.largeTitle, { color: text }]}>Components</Text>
-        <Text style={[Typography.subheadline, styles.subtitle, { color: secondary }]}>
-          UI 컴포넌트 카탈로그
-        </Text>
-      </Animated.View>
+      <View style={styles.headerRow}>
+        <View style={styles.headerText}>
+          <Text style={[Typography.largeTitle, { color: text }]}>Components</Text>
+          <Text style={[Typography.subheadline, styles.subtitle, { color: secondary }]}>
+            UI 컴포넌트 카탈로그
+          </Text>
+        </View>
+        <AnimatedPressable onPress={handleReplay}>
+          <View style={[styles.replayButton, { backgroundColor: accent }]}>
+            <Ionicons name="refresh" size={20} color="#fff" />
+          </View>
+        </AnimatedPressable>
+      </View>
 
+      <ComponentsContent
+        key={renderKey}
+        openSheet={openSheet}
+        show={show}
+        setDialogVisible={setDialogVisible}
+      />
+
+      <Sheet sheetRef={sheetRef} snapPoints={['30%']}>
+        <Text style={[Typography.headline, { color: text }]}>Bottom Sheet</Text>
+        <Text style={[Typography.body, { color: secondary }]}>Swipe down to dismiss</Text>
+      </Sheet>
+
+      <Dialog
+        visible={dialogVisible}
+        onDismiss={() => setDialogVisible(false)}
+        title="삭제하시겠습니까?"
+        message="이 작업은 되돌릴 수 없습니다."
+        actions={[
+          { label: '취소', variant: 'ghost', onPress: () => setDialogVisible(false) },
+          {
+            label: '삭제',
+            variant: 'destructive',
+            onPress: () => {
+              setDialogVisible(false);
+              show({ message: '삭제되었습니다', type: 'success' });
+            },
+          },
+        ]}
+      />
+    </ScrollView>
+  );
+}
+
+function ComponentsContent({
+  openSheet,
+  show,
+  setDialogVisible,
+}: {
+  openSheet: () => void;
+  show: ReturnType<typeof useToast>['show'];
+  setDialogVisible: (v: boolean) => void;
+}) {
+  const text = useThemeColor('text');
+  const secondary = useThemeColor('textSecondary');
+  const accent = useThemeColor('accent');
+
+  const s1 = useEntrance({ fade: true, slideY: 30, delay: 0 });
+  const s2 = useEntrance({ fade: true, slideY: 30, delay: 100 });
+  const s3 = useEntrance({ fade: true, slideY: 30, delay: 200 });
+  const s4 = useEntrance({ fade: true, slideY: 30, delay: 300 });
+
+  const [toggleValue, setToggleValue] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  return (
+    <>
       {/* Card */}
       <Animated.View style={[styles.section, s1.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>Card</Text>
@@ -85,6 +149,33 @@ export default function HomeScreen() {
         <Button title="Disabled" disabled fullWidth />
       </Animated.View>
 
+      {/* Image */}
+      <Animated.View style={[styles.section, s2.animatedStyle]}>
+        <Text style={[Typography.headline, { color: text }]}>Image</Text>
+        <Image
+          source="https://picsum.photos/seed/taste-kit/400/200"
+          radius="lg"
+          contentFit="cover"
+        />
+        <View style={styles.row}>
+          <Image
+            source="https://picsum.photos/seed/avatar1/100/100"
+            radius="full"
+            style={{ width: 48, height: 48 }}
+          />
+          <Image
+            source="https://picsum.photos/seed/avatar2/100/100"
+            radius="full"
+            style={{ width: 48, height: 48 }}
+          />
+          <Image
+            source="https://picsum.photos/seed/avatar3/100/100"
+            radius="full"
+            style={{ width: 48, height: 48 }}
+          />
+        </View>
+      </Animated.View>
+
       {/* TextInput */}
       <Animated.View style={[styles.section, s2.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>TextInput</Text>
@@ -100,7 +191,7 @@ export default function HomeScreen() {
       </Animated.View>
 
       {/* Toggle & ListItem */}
-      <Animated.View style={[styles.section, s2.animatedStyle]}>
+      <Animated.View style={[styles.section, s3.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>ListItem & Toggle</Text>
         <Card variant="filled" padding={0}>
           <ListItem
@@ -126,7 +217,7 @@ export default function HomeScreen() {
       </Animated.View>
 
       {/* Divider */}
-      <Animated.View style={[styles.section, s2.animatedStyle]}>
+      <Animated.View style={[styles.section, s3.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>Divider</Text>
         <Text style={[Typography.body, { color: secondary }]}>기본</Text>
         <Divider />
@@ -148,7 +239,7 @@ export default function HomeScreen() {
       </Animated.View>
 
       {/* Interactions */}
-      <Animated.View style={[styles.section, s3.animatedStyle]}>
+      <Animated.View style={[styles.section, s4.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>Interactions</Text>
         <AnimatedPressable onPress={openSheet}>
           <Card variant="filled">
@@ -188,7 +279,7 @@ export default function HomeScreen() {
       </Animated.View>
 
       {/* Navigation */}
-      <Animated.View style={[styles.section, s3.animatedStyle]}>
+      <Animated.View style={[styles.section, s4.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>Navigation</Text>
         <Button
           title="온보딩 다시 보기"
@@ -200,30 +291,7 @@ export default function HomeScreen() {
           }}
         />
       </Animated.View>
-
-      <Sheet sheetRef={sheetRef} snapPoints={['30%']}>
-        <Text style={[Typography.headline, { color: text }]}>Bottom Sheet</Text>
-        <Text style={[Typography.body, { color: secondary }]}>Swipe down to dismiss</Text>
-      </Sheet>
-
-      <Dialog
-        visible={dialogVisible}
-        onDismiss={() => setDialogVisible(false)}
-        title="삭제하시겠습니까?"
-        message="이 작업은 되돌릴 수 없습니다."
-        actions={[
-          { label: '취소', variant: 'ghost', onPress: () => setDialogVisible(false) },
-          {
-            label: '삭제',
-            variant: 'destructive',
-            onPress: () => {
-              setDialogVisible(false);
-              show({ message: '삭제되었습니다', type: 'success' });
-            },
-          },
-        ]}
-      />
-    </ScrollView>
+    </>
   );
 }
 
@@ -250,5 +318,21 @@ const styles = StyleSheet.create({
   skeletonLines: {
     flex: 1,
     gap: Spacing.sm,
+  },
+  headerRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+  },
+  headerText: {
+    flex: 1,
+  },
+  replayButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: Spacing.xs,
   },
 });
