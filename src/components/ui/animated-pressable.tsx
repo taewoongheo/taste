@@ -1,4 +1,4 @@
-import { useScalePress } from '@/hooks';
+import { useScalePress } from './use-scale-press';
 import type * as Haptics from 'expo-haptics';
 import type { ReactNode } from 'react';
 import type { ViewProps } from 'react-native';

@@ -12,10 +12,11 @@ import {
   Text,
   TextInput,
   Toggle,
+  useEntrance,
   useToast,
 } from '@/components/ui';
 import { Spacing } from '@/constants';
-import { useEntrance, useThemeColor } from '@/hooks';
+import { useThemeColor } from '@/hooks';
 import { Haptic } from '@/lib';
 import { useAppStore } from '@/stores';
 import { Ionicons } from '@expo/vector-icons';
