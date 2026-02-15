@@ -1,6 +1,7 @@
 export { AnimatedPressable, type AnimatedPressableProps } from './animated-pressable';
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './button';
 export { ErrorBoundary } from './error-boundary';
+export { FadeView, type FadeViewProps } from './fade-view';
 export { Image, type ImageProps } from './image';
 export { KeyboardAvoidingView, type KeyboardAvoidingViewProps } from './keyboard-avoiding-view';
 export { Card, type CardProps, type CardVariant } from './card';
