@@ -4,6 +4,7 @@ import { Spacing, Typography } from '@/constants/design-tokens';
 import { useEntrance, useThemeColor } from '@/hooks';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function ExploreScreen() {
   const bg = useThemeColor('background');
@@ -11,6 +12,7 @@ export default function ExploreScreen() {
   const secondary = useThemeColor('textSecondary');
   const accent = useThemeColor('accent');
 
+  const { top } = useSafeAreaInsets();
   const headerEntrance = useEntrance({ fade: true, slideY: 20 });
   const springsEntrance = useEntrance({ fade: true, slideY: 30, delay: 100 });
   const timingsEntrance = useEntrance({ fade: true, slideY: 30, delay: 200 });
@@ -18,7 +20,7 @@ export default function ExploreScreen() {
   return (
     <ScrollView
       style={[styles.scroll, { backgroundColor: bg }]}
-      contentContainerStyle={styles.content}
+      contentContainerStyle={[styles.content, { paddingTop: top + Spacing.md }]}
     >
       <Animated.View style={headerEntrance.animatedStyle}>
         <Text style={[Typography.largeTitle, { color: text }]}>Tokens</Text>
@@ -81,7 +83,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: Spacing.md,
-    paddingTop: Spacing.xl * 2,
     gap: Spacing.md,
     paddingBottom: Spacing.xl * 2,
   },

@@ -22,6 +22,7 @@ import { router } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Animated from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const bg = useThemeColor('background');
@@ -29,6 +30,7 @@ export default function HomeScreen() {
   const secondary = useThemeColor('textSecondary');
   const accent = useThemeColor('accent');
 
+  const { top } = useSafeAreaInsets();
   const headerEntrance = useEntrance({ fade: true, slideY: 20 });
   const s1 = useEntrance({ fade: true, slideY: 30, delay: 100 });
   const s2 = useEntrance({ fade: true, slideY: 30, delay: 200 });
@@ -45,7 +47,7 @@ export default function HomeScreen() {
   return (
     <ScrollView
       style={[styles.scroll, { backgroundColor: bg }]}
-      contentContainerStyle={styles.content}
+      contentContainerStyle={[styles.content, { paddingTop: top + Spacing.md }]}
     >
       <Animated.View style={headerEntrance.animatedStyle}>
         <Text style={[Typography.largeTitle, { color: text }]}>Components</Text>
@@ -231,7 +233,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: Spacing.md,
-    paddingTop: Spacing.xl * 2,
     gap: Spacing.md,
     paddingBottom: Spacing.xl * 2,
   },

@@ -14,6 +14,7 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import { useSharedValue } from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Colors } from '@/constants/design-tokens';
 import { OnboardingIndicator } from './onboarding-indicator';
@@ -44,6 +45,7 @@ export function OnboardingFunnel({
   completeLabel = '시작하기',
 }: OnboardingFunnelProps) {
   const { width } = useWindowDimensions();
+  const { top, bottom } = useSafeAreaInsets();
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
 
@@ -80,7 +82,7 @@ export function OnboardingFunnel({
   return (
     <View style={[styles.container, { backgroundColor: colors.background }]}>
       {onSkip && (
-        <View style={styles.skipContainer}>
+        <View style={[styles.skipContainer, { top: top + Spacing.sm }]}>
           <Button title="건너뛰기" variant="ghost" size="sm" onPress={onSkip} />
         </View>
       )}
@@ -106,7 +108,7 @@ export function OnboardingFunnel({
         ))}
       </ScrollView>
 
-      <View style={styles.footer}>
+      <View style={[styles.footer, { paddingBottom: bottom + Spacing.md }]}>
         <OnboardingIndicator count={steps.length} activeIndex={activeIndex} />
         <Button
           title={currentIndex.current >= steps.length - 1 ? completeLabel : '다음'}
@@ -124,7 +126,6 @@ const styles = StyleSheet.create({
   },
   skipContainer: {
     position: 'absolute',
-    top: Spacing.xl * 2,
     right: Spacing.md,
     zIndex: 1,
   },
@@ -147,7 +148,6 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: Spacing.md,
-    paddingBottom: Spacing.xl * 2,
     gap: Spacing.lg,
   },
 });
