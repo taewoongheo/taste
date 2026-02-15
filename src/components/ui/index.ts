@@ -1,5 +1,6 @@
 export { AnimatedPressable, type AnimatedPressableProps } from './animated-pressable';
 export { Button, type ButtonProps, type ButtonVariant, type ButtonSize } from './button';
+export { ErrorBoundary } from './error-boundary';
 export { Card, type CardProps, type CardVariant } from './card';
 export { ListItem, type ListItemProps } from './list-item';
 export { Sheet, type SheetProps } from './sheet';

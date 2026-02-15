@@ -1,4 +1,4 @@
-import { ToastProvider } from '@/components/ui';
+import { ErrorBoundary, ToastProvider } from '@/components/ui';
 import { migrate } from '@/lib';
 import { SQLiteProvider } from 'expo-sqlite';
 import type { ReactNode } from 'react';
@@ -16,9 +16,11 @@ interface AppProvidersProps {
 export function AppProviders({ children }: AppProvidersProps) {
   return (
     <GestureHandlerRootView style={styles.root}>
-      <SQLiteProvider databaseName="taste-kit.db" onInit={migrate}>
-        <ToastProvider>{children}</ToastProvider>
-      </SQLiteProvider>
+      <ErrorBoundary>
+        <SQLiteProvider databaseName="taste-kit.db" onInit={migrate}>
+          <ToastProvider>{children}</ToastProvider>
+        </SQLiteProvider>
+      </ErrorBoundary>
     </GestureHandlerRootView>
   );
 }
