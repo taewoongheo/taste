@@ -6,7 +6,7 @@ import BottomSheetLib, {
 } from '@gorhom/bottom-sheet';
 import type BottomSheetType from '@gorhom/bottom-sheet';
 import type { ReactNode } from 'react';
-import { type RefObject, useCallback } from 'react';
+import { type RefObject, useCallback, useState } from 'react';
 import { StyleSheet, useColorScheme } from 'react-native';
 
 export interface SheetProps {
@@ -34,6 +34,7 @@ export function Sheet({
 }: SheetProps) {
   const colorScheme = useColorScheme() ?? 'light';
   const colors = Colors[colorScheme];
+  const [hasOpened, setHasOpened] = useState(false);
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -55,7 +56,10 @@ export function Sheet({
       enableDynamicSizing={enableDynamicSizing}
       enablePanDownToClose
       onClose={onDismiss}
-      backdropComponent={renderBackdrop}
+      onChange={(index) => {
+        if (index >= 0) setHasOpened(true);
+      }}
+      backdropComponent={hasOpened ? renderBackdrop : undefined}
       backgroundStyle={[styles.background, { backgroundColor: colors.backgroundElevated }]}
       handleIndicatorStyle={{ backgroundColor: colors.fillPrimary }}
       style={styles.sheet}
