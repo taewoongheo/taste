@@ -44,13 +44,16 @@ export function FadeView({
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    pointerEvents: opacity.value === 0 ? ('none' as const) : ('auto' as const),
   }));
 
   if (!shouldRender) return null;
 
   return (
-    <Animated.View style={[style, animatedStyle]} testID={testID}>
+    <Animated.View
+      style={[style, animatedStyle]}
+      pointerEvents={visible ? 'auto' : 'none'}
+      testID={testID}
+    >
       {children}
     </Animated.View>
   );

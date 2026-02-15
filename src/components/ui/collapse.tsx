@@ -34,11 +34,10 @@ export function Collapse({
 
   const animatedStyle = useAnimatedStyle(() => ({
     height: height.value,
-    overflow: 'hidden' as const,
   }));
 
   return (
-    <Animated.View style={animatedStyle} testID={testID}>
+    <Animated.View style={[{ overflow: 'hidden' }, animatedStyle]} testID={testID}>
       <View
         style={{ position: 'absolute', width: '100%' }}
         onLayout={(e) => {

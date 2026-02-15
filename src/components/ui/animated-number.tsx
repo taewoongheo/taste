@@ -1,6 +1,6 @@
 import { Colors, Timings, Typography } from '@/constants';
 import { useColorScheme } from '@/hooks';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Text } from 'react-native';
 import {
   runOnJS,
@@ -41,6 +41,15 @@ export function AnimatedNumber({
   const [displayText, setDisplayText] = useState(() => formatter(value));
   const animatedValue = useSharedValue(value);
 
+  // formatter는 JS 스레드 함수 — worklet 안에서 직접 호출 불가.
+  // runOnJS로 JS 스레드에서 실행되도록 래핑.
+  const updateDisplay = useCallback(
+    (v: number) => {
+      setDisplayText(formatter(v));
+    },
+    [formatter],
+  );
+
   useEffect(() => {
     animatedValue.value = withTiming(value, { duration });
   }, [value, duration, animatedValue]);
@@ -48,7 +57,7 @@ export function AnimatedNumber({
   useAnimatedReaction(
     () => animatedValue.value,
     (current) => {
-      runOnJS(setDisplayText)(formatter(current));
+      runOnJS(updateDisplay)(current);
     },
   );
 
