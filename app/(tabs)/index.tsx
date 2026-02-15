@@ -11,6 +11,7 @@ import {
   Skeleton,
   TextInput,
   Toggle,
+  Text as UIText,
   useToast,
 } from '@/components/ui';
 import { Spacing, Typography } from '@/constants';
@@ -120,6 +121,30 @@ function ComponentsContent({
 
   return (
     <>
+      {/* Text */}
+      <Animated.View style={[styles.section, s1.animatedStyle]}>
+        <Text style={[Typography.headline, { color: text }]}>Text</Text>
+        <UIText variant="largeTitle">largeTitle</UIText>
+        <UIText variant="title1">title1</UIText>
+        <UIText variant="title2">title2</UIText>
+        <UIText variant="title3">title3</UIText>
+        <UIText variant="headline">headline</UIText>
+        <UIText variant="body">body (default)</UIText>
+        <UIText variant="callout">callout</UIText>
+        <UIText variant="subheadline" color="textSecondary">
+          subheadline · secondary
+        </UIText>
+        <UIText variant="footnote" color="textSecondary">
+          footnote · secondary
+        </UIText>
+        <UIText variant="caption1" color="textTertiary">
+          caption1 · tertiary
+        </UIText>
+        <UIText variant="caption2" color="textTertiary">
+          caption2 · tertiary
+        </UIText>
+      </Animated.View>
+
       {/* Card */}
       <Animated.View style={[styles.section, s1.animatedStyle]}>
         <Text style={[Typography.headline, { color: text }]}>Card</Text>

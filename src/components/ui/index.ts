@@ -10,6 +10,7 @@ export { ListItem, type ListItemProps } from './list-item';
 export { SearchBar, type SearchBarProps } from './search-bar';
 export { Sheet, type SheetProps } from './sheet';
 export { Skeleton, type SkeletonProps } from './skeleton';
+export { Text, type TextProps, type TextVariant, type TextColor } from './text';
 export { TextInput, type TextInputProps } from './text-input';
 export { ToastProvider, useToast, type ToastConfig, type ToastType } from './toast';
 export { Toggle, type ToggleProps } from './toggle';
