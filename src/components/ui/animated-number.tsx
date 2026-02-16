@@ -1,14 +1,12 @@
-import { Colors, Timings, Typography } from '@/constants';
-import { useColorScheme } from '@/hooks';
-import { useCallback, useEffect, useState } from 'react';
-import { Text } from 'react-native';
+import { Timings } from "@/constants";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  runOnJS,
   useAnimatedReaction,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
-import type { TextColor, TextVariant } from './text';
+} from "react-native-reanimated";
+import { scheduleOnRN } from "react-native-worklets";
+import { Text, type TextColor, type TextVariant } from "./text";
 
 export interface AnimatedNumberProps {
   /** The target number to animate to */
@@ -22,7 +20,7 @@ export interface AnimatedNumberProps {
   /** Color token (default: 'text') */
   color?: TextColor;
   /** Text alignment */
-  align?: 'left' | 'center' | 'right';
+  align?: "left" | "center" | "right";
   testID?: string;
 }
 
@@ -30,46 +28,36 @@ export function AnimatedNumber({
   value,
   duration = Timings.slow.duration,
   formatter = (v) => String(Math.round(v)),
-  variant = 'title',
-  color = 'text',
+  variant = "title",
+  color = "text",
   align,
   testID,
 }: AnimatedNumberProps) {
-  const colorScheme = useColorScheme();
-  const resolvedColor = Colors[colorScheme][color];
-
   const [displayText, setDisplayText] = useState(() => formatter(value));
   const animatedValue = useSharedValue(value);
 
-  // formatter는 JS 스레드 함수 — worklet 안에서 직접 호출 불가.
-  // runOnJS로 JS 스레드에서 실행되도록 래핑.
-  const updateDisplay = useCallback(
-    (v: number) => {
-      setDisplayText(formatter(v));
-    },
-    [formatter],
-  );
+  // Keep latest formatter in ref to avoid stale closure in worklet
+  const formatterRef = useRef(formatter);
+  formatterRef.current = formatter;
+
+  const updateDisplay = useCallback((v: number) => {
+    const text = formatterRef.current(v);
+    setDisplayText((prev) => (prev === text ? prev : text));
+  }, []);
 
   useEffect(() => {
-    animatedValue.value = withTiming(value, { duration });
+    animatedValue.value = withTiming(value, { ...Timings.slow, duration });
   }, [value, duration, animatedValue]);
 
   useAnimatedReaction(
     () => animatedValue.value,
     (current) => {
-      runOnJS(updateDisplay)(current);
+      scheduleOnRN(updateDisplay, current);
     },
   );
 
   return (
-    <Text
-      testID={testID}
-      style={[
-        Typography[variant],
-        { color: resolvedColor },
-        align && { textAlign: align },
-      ]}
-    >
+    <Text testID={testID} variant={variant} color={color} align={align}>
       {displayText}
     </Text>
   );
