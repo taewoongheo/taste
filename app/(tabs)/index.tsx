@@ -63,7 +63,7 @@ function DemoLink({ title, route, index }: { title: string; route: string; index
     <Animated.View style={style}>
       <AnimatedPressable onPress={() => router.push(route as never)}>
         <View style={[styles.card, { backgroundColor: bgGrouped }]}>
-          <Text weight="500">{title}</Text>
+          <Text variant="label">{title}</Text>
           <Ionicons name="chevron-forward" size={18} color="#8E8E93" />
         </View>
       </AnimatedPressable>

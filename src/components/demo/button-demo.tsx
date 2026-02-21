@@ -1,82 +1,92 @@
 import { Button, Text } from '@/components/ui';
-import { Colors, Spacing } from '@/constants';
-import { StyleSheet, View, useColorScheme } from 'react-native';
+import { Spacing } from '@/constants';
+import { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 
 export function ButtonDemo() {
-  const colorScheme = useColorScheme() ?? 'light';
-  const colors = Colors[colorScheme];
+  const [loading, setLoading] = useState(false);
+
+  const toggleLoading = () => {
+    setLoading(true);
+    setTimeout(() => setLoading(false), 2000);
+  };
 
   return (
     <>
-      <Text variant="subtitle">Button</Text>
+      {/* Variants */}
+      <Text variant="subtitle">Variants</Text>
       <View style={styles.row}>
-        <Button height={34} backgroundColor={colors.accent} onPress={() => {}}>
-          <Text variant="label" color="background" weight="600">
+        <Button fullWidth={false} onPress={() => {}}>
+          <Text variant="label" color="background" bold>
             Primary
           </Text>
         </Button>
-        <Button height={34} backgroundColor={colors.fillPrimary} onPress={() => {}}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="secondary" onPress={() => {}}>
+          <Text variant="label" color="accent" bold>
             Secondary
           </Text>
         </Button>
-      </View>
-      <View style={styles.row}>
-        <Button height={34} backgroundColor={colors.destructive} onPress={() => {}}>
-          <Text variant="label" color="background" weight="600">
+        <Button fullWidth={false} variant="destructive" onPress={() => {}}>
+          <Text variant="label" color="background" bold>
             Destructive
           </Text>
         </Button>
-        <Button height={34} backgroundColor="transparent" onPress={() => {}}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" onPress={() => {}}>
+          <Text variant="label" color="accent" bold>
             Ghost
           </Text>
         </Button>
       </View>
-      <Button
-        height={34}
-        backgroundColor={colors.accent}
-        style={{ width: '100%' }}
-        onPress={() => {}}
-      >
-        <Text variant="label" color="background" weight="600">
-          Primary sm
+
+      {/* Sizes */}
+      <Text variant="subtitle">Sizes</Text>
+      <View style={styles.row}>
+        <Button fullWidth={false} size="sm" onPress={() => {}}>
+          <Text variant="caption" color="background" bold>
+            Small
+          </Text>
+        </Button>
+        <Button fullWidth={false} size="md" onPress={() => {}}>
+          <Text variant="label" color="background" bold>
+            Medium
+          </Text>
+        </Button>
+        <Button fullWidth={false} size="lg" onPress={() => {}}>
+          <Text variant="body" color="background" bold>
+            Large
+          </Text>
+        </Button>
+      </View>
+
+      {/* Full Width */}
+      <Text variant="subtitle">Full Width</Text>
+      <Button onPress={() => {}}>
+        <Text variant="body" color="background" bold>
+          Full Width Button
         </Text>
       </Button>
-      <Button
-        height={44}
-        backgroundColor={colors.accent}
-        style={{ width: '100%' }}
-        onPress={() => {}}
-      >
-        <Text variant="body" color="background" weight="600">
-          Primary md
+
+      {/* Loading */}
+      <Text variant="subtitle">Loading</Text>
+      <Button fullWidth={false} isLoading={loading} onPress={toggleLoading}>
+        <Text variant="label" color="background" bold>
+          loading
         </Text>
       </Button>
-      <Button
-        height={54}
-        backgroundColor={colors.accent}
-        style={{ width: '100%' }}
-        onPress={() => {}}
-      >
-        <Text variant="title" color="background" weight="600">
-          Primary lg
-        </Text>
-      </Button>
-      <Button
-        isLoading
-        height={44}
-        backgroundColor={colors.accent}
-        style={{ width: '100%' }}
-        loadingText="Loading..."
-      >
-        <Text variant="body" color="background" weight="600">
-          Loading
-        </Text>
-      </Button>
-      <Button height={44} backgroundColor={colors.fillSecondary} disabled style={{ width: '100%' }}>
-        <Text variant="body" color="textTertiary" weight="600">
+
+      {/* Disabled */}
+      <Text variant="subtitle">Disabled</Text>
+      <Button disabled onPress={() => {}}>
+        <Text variant="label" color="background" bold>
           Disabled
+        </Text>
+      </Button>
+
+      {/* No Animation */}
+      <Text variant="subtitle">No Press Animation</Text>
+      <Button withAnimation={false} onPress={() => {}}>
+        <Text variant="label" color="background" bold>
+          No Animation
         </Text>
       </Button>
     </>
@@ -84,5 +94,5 @@ export function ButtonDemo() {
 }
 
 const styles = StyleSheet.create({
-  row: { flexDirection: 'row', gap: Spacing.sm },
+  row: { flexDirection: 'row', gap: Spacing.sm, flexWrap: 'wrap' },
 });

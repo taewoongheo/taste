@@ -15,8 +15,8 @@ export function DropdownDemo() {
       <View style={styles.row}>
         <Dropdown>
           <Dropdown.Trigger>
-            <Button height={34} backgroundColor={colors.fillPrimary}>
-              <Text variant="label" color="accent" weight="600">
+            <Button fullWidth={false} variant="secondary" size="sm">
+              <Text variant="label" color="accent" bold>
                 {selected}
               </Text>
             </Button>

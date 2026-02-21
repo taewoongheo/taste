@@ -42,7 +42,7 @@ export default function GraphicsScreen() {
           </Text>
           <View style={styles.center}>
             <ChromaRing width={cardWidth} height={56} borderWidth={2} speed={1.0}>
-              <Text weight="600">Chroma Ring Button</Text>
+              <Text bold>Chroma Ring Button</Text>
             </ChromaRing>
           </View>
           <View style={styles.center}>

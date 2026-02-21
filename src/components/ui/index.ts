@@ -5,7 +5,7 @@ export { Image, type ImageProps } from './image';
 export { Collapse, type CollapseProps } from './collapse';
 export { Divider, type DividerProps } from './divider';
 export { Skeleton, type SkeletonProps } from './skeleton';
-export { Text, type TextProps, type TextVariant, type TextColor, type TextWeight } from './text';
+export { Text, type TextProps, type TextVariant, type TextColor } from './text';
 export {
   TextInput,
   type TextInputProps,
@@ -15,7 +15,7 @@ export {
 
 // Reacticx components
 export { Button } from './button';
-export type { IButton as ButtonProps } from './button/types';
+export type { ButtonProps, ButtonVariant, ButtonSize } from './button';
 export { Dialog } from './dialog';
 export type {
   DialogProps,

@@ -11,8 +11,8 @@ export function DialogDemo() {
       <Text variant="subtitle">Dialog</Text>
       <Dialog>
         <Dialog.Trigger>
-          <Button height={34} backgroundColor={colors.fillPrimary}>
-            <Text variant="label" color="accent" weight="600">
+          <Button fullWidth={false} variant="secondary" size="sm">
+            <Text variant="label" color="accent" bold>
               Dialog 열기
             </Text>
           </Button>
@@ -21,12 +21,12 @@ export function DialogDemo() {
           <Dialog.Backdrop blurAmount={20} backgroundColor="rgba(0,0,0,0.5)">
             <View style={[styles.card, { backgroundColor: colors.backgroundElevated }]}>
               <Text variant="title">알림</Text>
-              <Text color="textSecondary" align="center">
+              <Text color="textSecondary" style={{ textAlign: 'center' }}>
                 이것은 Reacticx Dialog 컴포넌트입니다. 3D 원근감 애니메이션으로 열리고 닫힙니다.
               </Text>
               <Dialog.Close>
-                <Button height={40} backgroundColor={colors.accent} style={styles.closeBtn}>
-                  <Text variant="label" color="background" weight="600">
+                <Button style={styles.closeBtn}>
+                  <Text variant="label" color="background" bold>
                     닫기
                   </Text>
                 </Button>
@@ -47,5 +47,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: Spacing.sm,
   },
-  closeBtn: { width: '100%', marginTop: Spacing.sm },
+  closeBtn: { marginTop: Spacing.sm },
 });

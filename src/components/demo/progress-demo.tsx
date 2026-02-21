@@ -24,25 +24,27 @@ export function ProgressDemo() {
       />
       <View style={styles.row}>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => setProgress((v) => Math.min(v + 0.2, 1))}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             +20%
           </Text>
         </Button>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => setProgress((v) => Math.max(v - 0.2, 0))}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             -20%
           </Text>
         </Button>
-        <Button height={34} backgroundColor="transparent" onPress={() => setProgress(0)}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" size="sm" onPress={() => setProgress(0)}>
+          <Text variant="label" color="accent" bold>
             Reset
           </Text>
         </Button>

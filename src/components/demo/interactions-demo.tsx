@@ -1,8 +1,8 @@
 import { AnimatedPressable, Button, Text } from '@/components/ui';
-import { Colors, Spacing } from '@/constants';
+import { Spacing } from '@/constants';
 import { useThemeColor } from '@/hooks';
 import { Haptic } from '@/lib';
-import { StyleSheet, View, useColorScheme } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 interface InteractionsDemoProps {
   onOpenSheet: () => void;
@@ -11,8 +11,6 @@ interface InteractionsDemoProps {
 
 export function InteractionsDemo({ onOpenSheet, showToast }: InteractionsDemoProps) {
   const bgGrouped = useThemeColor('backgroundGrouped');
-  const colorScheme = useColorScheme() ?? 'light';
-  const colors = Colors[colorScheme];
 
   return (
     <>
@@ -24,37 +22,39 @@ export function InteractionsDemo({ onOpenSheet, showToast }: InteractionsDemoPro
       </AnimatedPressable>
       <View style={styles.row}>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => showToast('저장되었습니다')}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             Toast: success
           </Text>
         </Button>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => showToast('오류 발생')}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             Toast: error
           </Text>
         </Button>
       </View>
       <View style={styles.row}>
-        <Button height={34} backgroundColor="transparent" onPress={() => Haptic.tap()}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" size="sm" onPress={() => Haptic.tap()}>
+          <Text variant="label" color="accent" bold>
             Haptic: tap
           </Text>
         </Button>
-        <Button height={34} backgroundColor="transparent" onPress={() => Haptic.success()}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" size="sm" onPress={() => Haptic.success()}>
+          <Text variant="label" color="accent" bold>
             Haptic: success
           </Text>
         </Button>
-        <Button height={34} backgroundColor="transparent" onPress={() => Haptic.error()}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" size="sm" onPress={() => Haptic.error()}>
+          <Text variant="label" color="accent" bold>
             Haptic: error
           </Text>
         </Button>

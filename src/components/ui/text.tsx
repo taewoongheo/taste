@@ -21,11 +21,7 @@ export function Text({ variant = 'body', bold, color = 'text', style, ...rest }:
   return (
     <RNText
       {...rest}
-      style={[
-        textStyle,
-        { color: resolvedColor, fontWeight: bold ? 'bold' : textStyle.fontWeight },
-        style,
-      ]}
+      style={[textStyle, { color: resolvedColor }, bold && { fontWeight: 'bold' }, style]}
     />
   );
 }

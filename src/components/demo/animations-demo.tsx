@@ -40,11 +40,12 @@ export function AnimationsDemo() {
       <Text variant="subtitle">Animations</Text>
 
       <Button
-        height={34}
-        backgroundColor={colors.fillPrimary}
+        fullWidth={false}
+        variant="secondary"
+        size="sm"
         onPress={() => setCollapseExpanded((v) => !v)}
       >
-        <Text variant="label" color="accent" weight="600">
+        <Text variant="label" color="accent" bold>
           {collapseExpanded ? 'Collapse 닫기' : 'Collapse 열기'}
         </Text>
       </Button>
@@ -58,8 +59,8 @@ export function AnimationsDemo() {
       </Collapse>
 
       <Animated.View style={shakeStyle}>
-        <Button height={34} backgroundColor={colors.destructive} onPress={shake}>
-          <Text variant="label" color="background" weight="600">
+        <Button fullWidth={false} variant="destructive" size="sm" onPress={shake}>
+          <Text variant="label" color="background" bold>
             Shake!
           </Text>
         </Button>
@@ -74,25 +75,27 @@ export function AnimationsDemo() {
       />
       <View style={styles.row}>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => setCounterValue((v) => v + 100)}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             +100
           </Text>
         </Button>
         <Button
-          height={34}
-          backgroundColor={colors.fillPrimary}
+          fullWidth={false}
+          variant="secondary"
+          size="sm"
           onPress={() => setCounterValue((v) => v - 50)}
         >
-          <Text variant="label" color="accent" weight="600">
+          <Text variant="label" color="accent" bold>
             -50
           </Text>
         </Button>
-        <Button height={34} backgroundColor="transparent" onPress={() => setCounterValue(0)}>
-          <Text variant="label" color="accent" weight="600">
+        <Button fullWidth={false} variant="ghost" size="sm" onPress={() => setCounterValue(0)}>
+          <Text variant="label" color="accent" bold>
             Reset
           </Text>
         </Button>

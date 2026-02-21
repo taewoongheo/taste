@@ -102,10 +102,10 @@ export function OnboardingFunnel({
         {steps.map((step) => (
           <View key={step.title} style={[styles.step, { width }]}>
             {step.content && <View style={styles.content}>{step.content}</View>}
-            <Text variant="title" align="center">
+            <Text variant="title" style={{ textAlign: 'center' }}>
               {step.title}
             </Text>
-            <Text variant="body" color="textSecondary" align="center">
+            <Text variant="body" color="textSecondary" style={{ textAlign: 'center' }}>
               {step.description}
             </Text>
           </View>
@@ -114,13 +114,8 @@ export function OnboardingFunnel({
 
       <View style={[styles.footer, { paddingBottom: bottom + Spacing.md }]}>
         <OnboardingIndicator count={steps.length} activeIndex={activeIndex} />
-        <Button
-          onPress={handleNext}
-          height={54}
-          backgroundColor={colors.accent}
-          style={{ width: '100%' }}
-        >
-          <Text variant="label" color="background" weight="600">
+        <Button onPress={handleNext} size="lg">
+          <Text variant="label" color="background" bold>
             {currentIndex.current >= steps.length - 1 ? completeLabel : '다음'}
           </Text>
         </Button>

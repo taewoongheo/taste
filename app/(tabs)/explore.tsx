@@ -127,15 +127,12 @@ function TokensContent() {
           {themeModes.map(({ mode, label }) => (
             <Button
               key={mode}
-              height={34}
-              backgroundColor={themeMode === mode ? colors.accent : colors.fillPrimary}
+              fullWidth={false}
+              variant={themeMode === mode ? 'primary' : 'secondary'}
+              size="sm"
               onPress={() => setThemeMode(mode)}
             >
-              <Text
-                variant="label"
-                color={themeMode === mode ? 'background' : 'accent'}
-                weight="600"
-              >
+              <Text variant="label" color={themeMode === mode ? 'background' : 'accent'} bold>
                 {label}
               </Text>
             </Button>
