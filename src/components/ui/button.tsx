@@ -29,10 +29,10 @@ export interface ButtonProps {
   size?: ButtonSize;
   isLoading?: boolean;
   disabled?: boolean;
-  onPress?: () => void;
   fullWidth?: boolean;
   style?: StyleProp<ViewStyle>;
   withAnimation?: boolean;
+  onPress?: () => void;
 }
 
 const sizeStyles: Record<
@@ -65,10 +65,10 @@ export const Button = memo<ButtonProps>(function Button({
   size = 'md',
   isLoading = false,
   disabled = false,
-  onPress,
   fullWidth = true,
   style,
   withAnimation = true,
+  onPress,
 }) {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];

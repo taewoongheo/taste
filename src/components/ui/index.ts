@@ -27,6 +27,11 @@ export type {
 } from './dialog/types';
 export { BottomSheet } from './bottom-sheet';
 export type { BottomSheetProps, BottomSheetMethods, SnapPoint } from './bottom-sheet/types';
+export { ExpandableBottomSheet } from './expandable-bottom-sheet';
+export type {
+  ExpandableBottomSheetProps,
+  ExpandableBottomSheetMethods,
+} from './expandable-bottom-sheet/types';
 export {
   Toast,
   ToastProviderWithViewport,

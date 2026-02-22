@@ -6,10 +6,15 @@ import { StyleSheet, View } from 'react-native';
 
 interface InteractionsDemoProps {
   onOpenSheet: () => void;
+  onOpenExpandableSheet?: () => void;
   showToast: (msg: string) => void;
 }
 
-export function InteractionsDemo({ onOpenSheet, showToast }: InteractionsDemoProps) {
+export function InteractionsDemo({
+  onOpenSheet,
+  onOpenExpandableSheet,
+  showToast,
+}: InteractionsDemoProps) {
   const bgGrouped = useThemeColor('backgroundGrouped');
 
   return (
@@ -20,6 +25,13 @@ export function InteractionsDemo({ onOpenSheet, showToast }: InteractionsDemoPro
           <Text>Sheet 열기</Text>
         </View>
       </AnimatedPressable>
+      {onOpenExpandableSheet && (
+        <AnimatedPressable onPress={onOpenExpandableSheet}>
+          <View style={[styles.card, { backgroundColor: bgGrouped }]}>
+            <Text>Expandable Sheet 열기</Text>
+          </View>
+        </AnimatedPressable>
+      )}
       <View style={styles.row}>
         <Button
           fullWidth={false}
