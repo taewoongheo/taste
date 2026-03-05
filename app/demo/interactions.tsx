@@ -12,19 +12,28 @@ export default function () {
   const dynamic = useBottomSheet();
   const dynamicExpandable = useBottomSheet();
 
+  const sns = useBottomSheet();
+
   return (
     <View style={{ flex: 1 }}>
       <DemoScreen title="Bottom Sheet">
         <View style={demoStyles.grid}>
-          <DemoButton label="Basic (30%)" onPress={basic.open} />
+          <DemoButton label="Bottom Sheet" onPress={sns.open} />
+          {/* <DemoButton label="Basic (30%)" onPress={basic.open} />
           <DemoButton label="Multi Snap" onPress={multiSnap.open} />
           <DemoButton label="Scroll Content" onPress={scroll.open} />
           <DemoButton label="Expandable" onPress={expandable.open} />
           <DemoButton label="Expandable + Scroll" onPress={expandableScroll.open} />
           <DemoButton label="Dynamic Sizing" onPress={dynamic.open} />
-          <DemoButton label="Dynamic Expandable" onPress={dynamicExpandable.open} />
+          <DemoButton label="Dynamic Expandable" onPress={dynamicExpandable.open} /> */}
         </View>
       </DemoScreen>
+
+      <ExpandableBottomSheet ref={sns.ref} snapPoints={['30%']} borderRadius={45}>
+        <View style={[demoStyles.content]}>
+          <Text variant="subtitle">Float-to-Full Bottom Sheet</Text>
+        </View>
+      </ExpandableBottomSheet>
 
       {/* 1. Basic — single snap */}
       <BottomSheet ref={basic.ref} snapPoints={['30%']}>

@@ -9,9 +9,18 @@
 - `@/components/ui`의 `<Text>` 컴포넌트만 사용. RN `<Text>` 직접 사용 금지
 - UI 문자열은 i18next 사용 (`t('key')`). 컴포넌트 내 한국어/영어 하드코딩 금지
 
+## UI 컴포넌트 사용
+- 구현 시작 전 사용할 UI 컴포넌트(`src/components/ui/`)의 Props 타입과 API를 반드시 읽고 확인. 추측으로 prop 이름이나 variant 값을 쓰지 않는다
+
 ## 권한
 - 네이티브 API(카메라, 갤러리, 알림 등) 사용 전 반드시 권한 요청
+
+## 설정
+- 앱 자체 settings가 필요할 경우 app-provider를 사용해서 테마와 동일한 방식으로 만들기
 
 ## 스타일
 - `StyleSheet.create` 사용. 인라인 스타일은 동적 값(`colors`, 계산값)만 허용
 - 간격은 `Spacing` 토큰 사용. 매직 넘버 금지
+
+## 테스트
+- mock은 실제 API 응답 shape를 따른다. 추측으로 mock 작성 금지

@@ -533,14 +533,15 @@ const ExpandableBottomSheet = memo(function ExpandableBottomSheet({
     );
 
     const sheetHeight = Math.max(0, visibleHeight - detachProgress * expandedSideMargin);
+    const borderProgress = interpolate(detachProgress, [0, 1], [1.35, 1], Extrapolation.CLAMP);
 
     return {
       transform: [{ translateY: translateY.value }],
       left: detachProgress * expandedSideMargin,
       right: detachProgress * expandedSideMargin,
       height: sheetHeight,
-      borderBottomLeftRadius: detachProgress * borderRadius,
-      borderBottomRightRadius: detachProgress * borderRadius,
+      borderBottomLeftRadius: borderProgress * borderRadius,
+      borderBottomRightRadius: borderProgress * borderRadius,
       opacity: 1,
     };
   });
